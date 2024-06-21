@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/danielkakai/Desktop/projects/Web3/letapay/hardhat/contracts/Letapay.sol": {
-      "lastModificationDate": 1718983269471,
-      "contentHash": "17c4ab7327e6811707864d35fc1fc878",
+      "lastModificationDate": 1718984494804,
+      "contentHash": "662b31567eb87df8d8c632163e4818f4",
       "sourceName": "contracts/Letapay.sol",
       "solcConfig": {
         "version": "0.8.24",
