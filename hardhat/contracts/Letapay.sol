@@ -59,10 +59,10 @@ contract Letapay {
         payments[paymentId] = newPayment;
 
         //transfer funds to contract
-        /*require(
+        require(
             IERC20(cUsdAddress).transferFrom(msg.sender, address(this), amount),
             "Transfer failed"
-        ); */
+        );
 
         emit PaymentAdded(paymentId, msg.sender, recieverAddress, amount);
     }
@@ -85,14 +85,14 @@ contract Letapay {
         );
 
         // transfer from contract to reciever
-        /* require(
+        require(
             IERC20(cUsdAddress).transferFrom(
                 address(this),
                 payments[paymentId].recieverAddress,
                 payments[paymentId].amount
             ),
             "Transfer failed"
-        ); */
+        );
 
         payments[paymentId].status = Status.COMPLETE;
 
