@@ -11,7 +11,7 @@ contract Letapay {
     address private cUsdAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
     enum Status {
-        AWAITING_PAYMENT,
+        AWAITING_TRANSFER,
         COMPLETE
     }
 
@@ -44,14 +44,14 @@ contract Letapay {
     }
 
     function addPayment(
-        address recieverAddress,
         string memory paymentId,
+        address recieverAddress,
         uint256 amount
     ) external {
         Payment memory newPayment = Payment({
             paymentId: paymentId,
             amount: amount,
-            status: Status.AWAITING_PAYMENT,
+            status: Status.AWAITING_TRANSFER,
             senderAddress: msg.sender,
             recieverAddress: recieverAddress
         });
@@ -59,12 +59,18 @@ contract Letapay {
         payments[paymentId] = newPayment;
 
         //transfer funds to contract
-        require(
+        /*require(
             IERC20(cUsdAddress).transferFrom(msg.sender, address(this), amount),
             "Transfer failed"
-        );
+        ); */
 
         emit PaymentAdded(paymentId, msg.sender, recieverAddress, amount);
+    }
+
+    function getPayment(
+        string memory paymentId
+    ) public view returns (Payment memory) {
+        return payments[paymentId];
     }
 
     function completePayment(string memory paymentId) external {
@@ -74,19 +80,19 @@ contract Letapay {
         );
 
         require(
-            payments[paymentId].status == Status.AWAITING_PAYMENT,
+            payments[paymentId].status == Status.AWAITING_TRANSFER,
             "Payment must be awaiting payment status"
         );
 
         // transfer from contract to reciever
-        require(
+        /* require(
             IERC20(cUsdAddress).transferFrom(
                 address(this),
                 payments[paymentId].recieverAddress,
                 payments[paymentId].amount
             ),
             "Transfer failed"
-        );
+        ); */
 
         payments[paymentId].status = Status.COMPLETE;
 
