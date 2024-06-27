@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract Letapay {
+contract LetapayV2 {
     string public name = "Letapay";
 
     address public owner;
@@ -85,6 +85,8 @@ contract Letapay {
         );
 
         // transfer from contract to reciever
+        IERC20(cUsdAddress).approve(address(this), payments[paymentId].amount);
+
         require(
             IERC20(cUsdAddress).transferFrom(
                 address(this),

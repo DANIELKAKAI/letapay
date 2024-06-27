@@ -1,16 +1,16 @@
 const { ethers } = require("ethers");
 
-const TokenABIJson = require("./artifacts/contracts/Letapay.sol/Letapay.json");
+const TokenABIJson = require("./artifacts/contracts/LetapayV2.sol/LetapayV2.json");
 
-const ERC20ABIJson = require("../utils/erc20.abi.json");
+const ERC20ABIJson = require("./utils/erc20.abi.json");
 
 require('dotenv').config();
 
-const { cUsdToWei, weiToCusd } = require("../utils/utils")
+const { cUsdToWei, weiToCusd } = require("./utils/utils")
 
 const OWNER_API_KEY = process.env.OWNER_PRIVATE_KEY;
 
-const SENDER_API_KEY = process.env.SENDER_API_KEY;
+const SENDER_PRIVATE_KEY = process.env.SENDER_PRIVATE_KEY;
 
 const ownerAddress = "0x8C998Ca53F797646b6CBa17bBD191d521648E4EC";
 
@@ -25,9 +25,11 @@ const provider = new ethers.JsonRpcProvider('https://alfajores-forno.celo-testne
 const wallet = new ethers.Wallet(OWNER_API_KEY, provider);
 
 
-//cusd
-const cUsdAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
-const celoContract = new ethers.Contract(cUsdAddress, ERC20ABIJson, wallet);
+// aljores contract
+const letapayContractAddress = "0x4C849A3736694567cbd304fd8526339ed29b23AB";
+
+// ABI and Address of the deployed contract
+const contractABI = TokenABIJson.abi;
 
 
 // sender contract
@@ -35,14 +37,12 @@ const senderWallet = new ethers.Wallet(SENDER_PRIVATE_KEY, provider);
 const senderContract = new ethers.Contract(letapayContractAddress, contractABI, senderWallet);
 
 
-// ABI and Address of the deployed contract
-const contractABI = TokenABIJson.abi;
-
-// aljores
-const letapayContractAddress = "0x614A568899911523ea51E91F3ccB21E0CBB82462";
+//cusd
+const cUsdAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+const celoContract = new ethers.Contract(cUsdAddress, ERC20ABIJson, senderWallet);
 
 
-// Connect to the contract
+// Connect to the contract by owner
 const contract = new ethers.Contract(letapayContractAddress, contractABI, wallet);
 
 
@@ -62,7 +62,25 @@ async function paymentDetails(id) {
 
 
 async function addPayment() {
-    let tx = await contract.addPayment("22", recieverAddress, 10);
+    try {
+        const approveTx = await celoContract.approve(letapayContractAddress, cUsdToWei(1.1));
+        let txres = await approveTx.wait();
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+    let tx = await senderContract.addPayment("22", recieverAddress, cUsdToWei(1.1));
+    let r = await tx.wait();
+}
+
+async function getPayment() {
+    let payment = await contract.getPayment("22");
+    console.log(payment);
+}
+
+async function completePayment() {
+    let tx = await contract.completePayment("22");
     let r = await tx.wait();
 }
 
@@ -71,7 +89,13 @@ async function balance(address, name) {
     console.log(`Balance of ${name} is ${weiToCusd(balance)}`);
 }
 
-readFunction();
+//readFunction();
+
+getPayment();
+
+//addPayment();
+
+//completePayment();
 
 
 

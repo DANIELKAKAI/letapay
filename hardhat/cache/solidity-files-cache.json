@@ -1,44 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/danielkakai/Desktop/projects/Web3/letapay/hardhat/contracts/Letapay.sol": {
-      "lastModificationDate": 1718984494804,
-      "contentHash": "662b31567eb87df8d8c632163e4818f4",
-      "sourceName": "contracts/Letapay.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Letapay"
-      ]
-    },
     "/Users/danielkakai/Desktop/projects/Web3/letapay/hardhat/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
       "lastModificationDate": 1718810997168,
       "contentHash": "5517c8678c18eb1a8ba58810e7ca39ca",
@@ -73,6 +35,44 @@
       ],
       "artifacts": [
         "IERC20"
+      ]
+    },
+    "/Users/danielkakai/Desktop/projects/Web3/letapay/hardhat/contracts/LetapayV2.sol": {
+      "lastModificationDate": 1719468239907,
+      "contentHash": "80654982ca02058270b00206029a47a6",
+      "sourceName": "contracts/LetapayV2.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LetapayV2"
       ]
     }
   }
