@@ -3,4 +3,7 @@
 hardhat/node_modules
 hardhat/.env
 
+frontend/node_modules
+frontend/packages/react-app/node_modules
+
 

@@ -52,6 +52,9 @@ async function readFunction() {
 
     const name = await contract.name();
     console.log("Name:", name);
+
+    const payments = await contract.payments("19ae5ef3-3d06-459c-aabc-11caef4ba932");
+    console.log("Payments:", payments);
 }
 
 
@@ -70,17 +73,17 @@ async function addPayment() {
         console.log(error);
     }
 
-    let tx = await senderContract.addPayment("22", recieverAddress, cUsdToWei(1.1));
+    let tx = await senderContract.addPayment("33", recieverAddress, cUsdToWei(1.1));
     let r = await tx.wait();
 }
 
 async function getPayment() {
-    let payment = await contract.getPayment("22");
+    let payment = await contract.getPayment("edacabed-bc78-4824-89a9-2a9959da329a");
     console.log(payment);
 }
 
 async function completePayment() {
-    let tx = await contract.completePayment("22");
+    let tx = await contract.completePayment("edacabed-bc78-4824-89a9-2a9959da329a");
     let r = await tx.wait();
 }
 
@@ -91,11 +94,11 @@ async function balance(address, name) {
 
 //readFunction();
 
-getPayment();
+//getPayment();
 
 //addPayment();
 
-//completePayment();
+completePayment();
 
 
 
